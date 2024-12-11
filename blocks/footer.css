@@ -1,0 +1,10 @@
+.footer {
+  padding: 60px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.footer__content {
+  font-style: normal;
+  font-weight: 400;
+}
