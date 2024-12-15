@@ -22,7 +22,7 @@
 }
 
 .card__like-button {
-  background-image: url(../images/icons/like-icon.svg);
+  background-image: url(../images/icons/like-black.svg);
   width: 23px;
   height: 20px;
   border: none;
@@ -32,13 +32,7 @@
 }
 
 .card__like-button:hover {
-  background-image: url(../images/icons/like-hover.svg);
-  width: 23px;
-  height: 20px;
-  border: none;
-  background-color: transparent;
   opacity: 100%;
-  align-content: center;
   cursor: pointer;
 }
 
@@ -56,7 +50,6 @@
 
   .card__title {
     font-size: 16px;
-    line-height: 1.2;
     max-width: 250px;
   }
 
