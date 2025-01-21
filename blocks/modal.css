@@ -12,6 +12,7 @@
   justify-content: center;
   visibility: hidden;
 }
+
 .modal__opened {
   visibility: visible;
 }
@@ -42,6 +43,7 @@
   border: none;
   background-color: #ffffff;
   opacity: 40%;
+  cursor: pointer;
 }
 
 .modal__form {
