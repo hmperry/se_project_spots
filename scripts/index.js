@@ -1,4 +1,4 @@
-const intialCards = [
+const initialCards = [
   {
     name: "Val Thorens",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
@@ -33,12 +33,57 @@ const intialCards = [
 const profileEditButton = document.querySelector(".profile__edit-button");
 const editModal = document.querySelector("#edit-profile-modal");
 
-profileEditButton.addEventListener("click", function () {
+const profileName = document.querySelector(".profile__name");
+const profileDescription = document.querySelector(".profile__title");
+const editModalNameInput = editModal.querySelector("#profile-name-input");
+const editModalDescriptionInput = editModal.querySelector(
+  "#profile-description-input"
+);
+const editFormElement = editModal.querySelector(".modal__form");
+
+function handleFormOpen(event) {
+  editModalNameInput.value = profileName.textContent;
+  editModalDescriptionInput.value = profileDescription.textContent;
   editModal.classList.add("modal__opened");
-});
+}
+
+profileEditButton.addEventListener("click", handleFormOpen);
 
 const profileEditCloseButton = editModal.querySelector(".modal__close-button");
 
 profileEditCloseButton.addEventListener("click", function () {
   editModal.classList.remove("modal__opened");
 });
+
+function handleProfileFormSubmit(evt) {
+  evt.preventDefault();
+  profileName.textContent = editModalNameInput.value;
+  profileDescription.textContent = editModalDescriptionInput.value;
+  editModal.classList.remove("modal__opened");
+}
+
+// Connect the handler to the form, so it will watch for the submit event.
+editFormElement.addEventListener("submit", handleProfileFormSubmit);
+
+//Rendering Cards
+const cardTemplate = document.querySelector("#card-template");
+
+function getCardElement(data) {
+  const cardElement = cardTemplate.content
+    .querySelector(".card")
+    .cloneNode(true);
+
+  const cardName = cardElement.querySelector(".card__title");
+  cardName.textContent = data.name;
+
+  const cardImage = cardElement.querySelector(".card__image");
+  cardImage.src = data.link;
+  cardImage.alt = data.name;
+
+  return cardElement;
+}
+
+for (let i = 0; i < initialCards.length; i++) {
+  const cardElement = getCardElement(initialCards[i]);
+  cards_list.prepend(cardElement);
+}

@@ -76,3 +76,13 @@
   line-height: 16px;
   color: rgba(252, 245, 229, 1);
 }
+
+@media screen and (max-width: 625px) {
+  .modal__container {
+    max-width: 300px;
+  }
+
+  .modal__input {
+    width: 276px;
+  }
+}
