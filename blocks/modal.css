@@ -1,11 +1,10 @@
 .modal {
   background-color: rgba(33, 33, 33, 0.4);
   position: fixed;
-  top: 0;
+  top: 0px;
   left: 0;
   right: 0;
   bottom: 0;
-  padding-top: 207px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,9 +20,10 @@
   padding: 32px 50px;
   margin: 0;
   background-color: #ffffff;
-  max-width: 730px;
+  width: 630px;
   border-radius: 8px;
-  position: relative;
+  position: absolute;
+  top: 207px;
 }
 
 .modal__title {
@@ -73,6 +73,7 @@
   max-width: 630px;
   padding: 16px 12px;
   border-radius: 8px;
+  border-width: 1px;
   border-color: rgba(33, 33, 33, 0.4);
   margin: 0;
 }
@@ -96,20 +97,21 @@
   background-color: rgba(33, 33, 33, 0.8);
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 625px) {
   .modal {
-    padding: 134 10 0px;
+    padding: 0 10 0px;
   }
 
   .modal__container {
     padding: 12px;
-    min-width: 276px;
+    max-width: 276px;
+    position: absolute;
+    top: 134px;
   }
 
   .modal__close-button {
-    position: absolute;
-    top: 12px;
-    right: 12px;
+    padding: 0;
+    margin: 0;
     background-image: url(../images/icons/close-button.svg);
   }
 
