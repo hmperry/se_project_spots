@@ -44,22 +44,24 @@ const editFormElement = editModal.querySelector(".modal__form");
 function handleFormOpen(event) {
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
-  editModal.classList.add("modal__opened");
+  editModal.classList.add("modal_opened");
 }
 
 profileEditButton.addEventListener("click", handleFormOpen);
 
 const profileEditCloseButton = editModal.querySelector(".modal__close-button");
 
-profileEditCloseButton.addEventListener("click", function () {
-  editModal.classList.remove("modal__opened");
-});
+function closeProfileModal() {
+  editModal.classList.remove("modal_opened");
+}
+
+profileEditCloseButton.addEventListener("click", closeProfileModal);
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = editModalNameInput.value;
   profileDescription.textContent = editModalDescriptionInput.value;
-  editModal.classList.remove("modal__opened");
+  closeProfileModal;
 }
 
 // Connect the handler to the form, so it will watch for the submit event.

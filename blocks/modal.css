@@ -13,7 +13,7 @@
   visibility: hidden;
 }
 
-.modal__opened {
+.modal_opened {
   visibility: visible;
 }
 .modal__container {
@@ -46,6 +46,11 @@
   cursor: pointer;
 }
 
+.modal__close-button:hover {
+  opacity: 100%;
+  cursor: pointer;
+}
+
 .modal__form {
   display: flex;
   flex-direction: column;
@@ -68,6 +73,11 @@
   border-color: rgba(33, 33, 33, 0.4);
 }
 
+.modal__input:hover {
+  cursor: pointer;
+  border-color: rgba(33, 33, 33, 1);
+}
+
 .modal__submit-button {
   width: 156px;
   border-radius: 8px;
@@ -75,14 +85,47 @@
   background-color: rgba(33, 33, 33, 1);
   line-height: 16px;
   color: rgba(252, 245, 229, 1);
+  cursor: pointer;
+}
+
+.modal__submit-button:hover {
+  background-color: rgba(33, 33, 33, 0.8);
 }
 
 @media screen and (max-width: 625px) {
+  .modal {
+    padding-top: 134px;
+  }
+
   .modal__container {
-    max-width: 300px;
+    padding: 12px;
+    width: 300px;
+  }
+
+  .modal__close-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-image: url(../images/icons/close-button.svg);
   }
 
   .modal__input {
     width: 276px;
+  }
+
+  .modal__title {
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 500;
+    padding-top: 10px;
+    padding-bottom: 34px;
+  }
+
+  .modal__label {
+    padding: 0 0 24px;
+  }
+
+  .modal__submit-button {
+    width: 100%;
   }
 }
