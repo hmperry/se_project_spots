@@ -61,7 +61,7 @@ function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = editModalNameInput.value;
   profileDescription.textContent = editModalDescriptionInput.value;
-  closeProfileModal;
+  closeProfileModal();
 }
 
 // Connect the handler to the form, so it will watch for the submit event.
