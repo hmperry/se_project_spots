@@ -35,6 +35,8 @@ const initialCards = [
   },
 ];
 
+const cardsList = document.querySelector("#cards_list");
+
 const profileEditButton = document.querySelector(".profile__edit-button");
 const editModal = document.querySelector("#edit-profile-modal");
 
@@ -44,10 +46,11 @@ const editModalNameInput = editModal.querySelector("#profile-name-input");
 const editModalDescriptionInput = editModal.querySelector(
   "#profile-description-input"
 );
-const editFormElement = editModal.querySelector(".modal__form");
+// const editFormElement = editModal.querySelector(".modal__form");
+const editFormElement = document.forms["profile-form"];
 
 function openModal(modal) {
-  modal.classList.add("modal__opened");
+  modal.classList.add("modal_opened");
 }
 
 //help me understand this refactoring of putting in the openModal function and passing it edit Modal??
@@ -57,14 +60,21 @@ profileEditButton.addEventListener("click", () => {
   openModal(editModal);
 });
 
-const profileEditCloseButton = editModal.querySelector(".modal__close-button");
+// const profileEditCloseButton = editModal.querySelector(".modal__close-button");
 
 function closeModal(modal) {
-  modal.classList.remove("modal__opened");
+  modal.classList.remove("modal_opened");
 }
 
-profileEditCloseButton.addEventListener("click", () => {
-  closeModal(editModal);
+// profileEditCloseButton.addEventListener("click", () => {
+//   closeModal(editModal);
+// });
+
+const closeButtons = document.querySelectorAll(".modal__close-button");
+
+closeButtons.forEach((button) => {
+  const popup = button.closest(".modal");
+  button.addEventListener("click", () => closeModal(popup));
 });
 
 function profileFormSubmit(evt) {
@@ -112,12 +122,15 @@ function getCardElement(data) {
     openModal(previewModal);
   });
 
-  previewModal.addEventListener("click", () => {
-    closeModal(previewModal);
-  });
-
   return cardElement;
 }
+
+// const previewModalCloseButton = previewModal.querySelector(
+//   ".modal__close-button_type_preview"
+// );
+// previewModalCloseButton.addEventListener("click", () => {
+//   closeModal(previewModal);
+// });
 
 // for (let i = 0; i < initialCards.length; i++) {
 //   const cardElement = getCardElement(initialCards[i]);
@@ -127,14 +140,14 @@ function getCardElement(data) {
 initialCards.forEach((item) => {
   console.log(item);
   const cardElement = getCardElement(item);
-  cards_list.prepend(cardElement);
+  cardsList.prepend(cardElement);
 });
 
 // New post modal
 
 const cardModalButton = document.querySelector(".profile__new-post-button");
 const cardModal = document.querySelector("#add-card-modal");
-const cardModalCloseButton = cardModal.querySelector(".modal__close-button");
+// const cardModalCloseButton = cardModal.querySelector(".modal__close-button");
 
 const cardModalImageLinkInput = cardModal.querySelector("#add-card-link-input");
 const cardModalCaptionInput = cardModal.querySelector("#add-card-name-input");
@@ -144,9 +157,9 @@ cardModalButton.addEventListener("click", () => {
   openModal(cardModal);
 });
 
-cardModalCloseButton.addEventListener("click", () => {
-  closeModal(cardModal);
-});
+// cardModalCloseButton.addEventListener("click", () => {
+//   closeModal(cardModal);
+// });
 
 //Save New Post
 
@@ -157,7 +170,7 @@ function handleNewPostFormSubmit(evt) {
     link: cardModalImageLinkInput.value,
   };
   const cardElement = getCardElement(inputValues);
-  cards_list.prepend(cardElement);
+  cardsList.prepend(cardElement);
   closeModal(cardModal);
 }
 
