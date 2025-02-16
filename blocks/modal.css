@@ -152,8 +152,7 @@
   }
 
   .modal__container_type_preview {
-   max-width: 100%;
-    
+    max-width: 100%;
   }
 
   .modal__close-button {
@@ -169,7 +168,6 @@
     position: absolute;
     top: -35px;
     right: 0;
-    
   }
 
   .modal__image {
@@ -209,4 +207,5 @@
     padding: 4px 8px;
     border-radius: 8px;
     position: absolute;
+  }
 }
