@@ -52,17 +52,16 @@ const editFormElement = document.forms["profile-form"];
 profileEditButton.addEventListener("click", () => {
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
-  resetValidation(editFormElement, [
-    editModalNameInput,
-    editModalDescriptionInput,
-  ]);
+  resetValidation(
+    editFormElement,
+    [editModalNameInput, editModalDescriptionInput],
+    settings
+  );
   openModal(editModal);
 });
 
-//How could I use a forEach loop to do this? I'm a little confused here.
-
+const modals = document.querySelectorAll(".modal");
 const handleClickOutside = (evt) => {
-  const modals = document.querySelectorAll(".modal");
   modals.forEach((modal) => {
     if (evt.target === modal && modal.classList.contains("modal_opened")) {
       closeModal(modal);
@@ -71,10 +70,9 @@ const handleClickOutside = (evt) => {
 };
 
 const handleEscapeModal = (evt) => {
-  const modals = document.querySelectorAll(".modal");
   modals.forEach((modal) => {
-    if (evt.key === "Escape" && modal.classList.contains("modal_opened")) {
-      closeModal(modal);
+    if (evt.key === "Escape") {
+      modals.forEach(closeModal);
     }
   });
 };
@@ -98,7 +96,7 @@ closeButtons.forEach((button) => {
   button.addEventListener("click", () => closeModal(popup));
 });
 
-function profileFormSubmit(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = editModalNameInput.value;
   profileDescription.textContent = editModalDescriptionInput.value;
@@ -106,7 +104,7 @@ function profileFormSubmit(evt) {
 }
 
 // Connect the handler to the form, so it will watch for the submit event.
-editFormElement.addEventListener("submit", profileFormSubmit);
+editFormElement.addEventListener("submit", handleProfileFormSubmit);
 
 //Rendering Cards
 const cardTemplate = document.querySelector("#card-template");
@@ -146,22 +144,14 @@ function getCardElement(data) {
   return cardElement;
 }
 
-// const previewModalCloseButton = previewModal.querySelector(
-//   ".modal__close-button_type_preview"
-// );
-// previewModalCloseButton.addEventListener("click", () => {
-//   closeModal(previewModal);
-// });
-
-// for (let i = 0; i < initialCards.length; i++) {
-//   const cardElement = getCardElement(initialCards[i]);
-//   cards_list.prepend(cardElement);
-// }
+function renderCard(item, method = "prepend") {
+  const cardElement = getCardElement(item);
+  cardsList[method](cardElement);
+}
 
 initialCards.forEach((item) => {
   // console.log(item);
-  const cardElement = getCardElement(item);
-  cardsList.prepend(cardElement);
+  renderCard(item, "prepend");
 });
 
 // New post modal
@@ -172,16 +162,12 @@ const cardModal = document.querySelector("#add-card-modal");
 
 const cardModalImageLinkInput = cardModal.querySelector("#add-card-link-input");
 const cardModalCaptionInput = cardModal.querySelector("#add-card-name-input");
-const cardModalFormElement = cardModal.querySelector(".modal__form");
+const cardModalFormElement = document.forms["add-card-form"];
 const cardSubmitButton = cardModal.querySelector(".modal__submit-button");
 
 cardModalButton.addEventListener("click", () => {
   openModal(cardModal);
 });
-
-// cardModalCloseButton.addEventListener("click", () => {
-//   closeModal(cardModal);
-// });
 
 //Save New Post
 
@@ -194,7 +180,7 @@ function handleNewPostFormSubmit(evt) {
   const cardElement = getCardElement(inputValues);
   cardsList.prepend(cardElement);
   evt.target.reset();
-  disableButton(cardSubmitButton, settings);
+  // disableButton(cardSubmitButton, settings);
   closeModal(cardModal);
 }
 
