@@ -49,26 +49,47 @@ const editModalDescriptionInput = editModal.querySelector(
 // const editFormElement = editModal.querySelector(".modal__form");
 const editFormElement = document.forms["profile-form"];
 
-function openModal(modal) {
-  modal.classList.add("modal_opened");
-}
-
-//help me understand this refactoring of putting in the openModal function and passing it edit Modal??
 profileEditButton.addEventListener("click", () => {
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
+  resetValidation(editFormElement, [
+    editModalNameInput,
+    editModalDescriptionInput,
+  ]);
   openModal(editModal);
 });
 
-// const profileEditCloseButton = editModal.querySelector(".modal__close-button");
+//How could I use a forEach loop to do this? I'm a little confused here.
+
+const handleClickOutside = (evt) => {
+  const modals = document.querySelectorAll(".modal");
+  modals.forEach((modal) => {
+    if (evt.target === modal && modal.classList.contains("modal_opened")) {
+      closeModal(modal);
+    }
+  });
+};
+
+const handleEscapeModal = (evt) => {
+  const modals = document.querySelectorAll(".modal");
+  modals.forEach((modal) => {
+    if (evt.key === "Escape" && modal.classList.contains("modal_opened")) {
+      closeModal(modal);
+    }
+  });
+};
+
+function openModal(modal) {
+  modal.classList.add("modal_opened");
+  document.addEventListener("mousedown", handleClickOutside);
+  document.addEventListener("keydown", handleEscapeModal);
+}
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("mousedown", handleClickOutside);
+  document.removeEventListener("keydown", handleEscapeModal);
 }
-
-// profileEditCloseButton.addEventListener("click", () => {
-//   closeModal(editModal);
-// });
 
 const closeButtons = document.querySelectorAll(".modal__close-button");
 
@@ -138,7 +159,7 @@ function getCardElement(data) {
 // }
 
 initialCards.forEach((item) => {
-  console.log(item);
+  // console.log(item);
   const cardElement = getCardElement(item);
   cardsList.prepend(cardElement);
 });
@@ -152,6 +173,7 @@ const cardModal = document.querySelector("#add-card-modal");
 const cardModalImageLinkInput = cardModal.querySelector("#add-card-link-input");
 const cardModalCaptionInput = cardModal.querySelector("#add-card-name-input");
 const cardModalFormElement = cardModal.querySelector(".modal__form");
+const cardSubmitButton = cardModal.querySelector(".modal__submit-button");
 
 cardModalButton.addEventListener("click", () => {
   openModal(cardModal);
@@ -172,6 +194,7 @@ function handleNewPostFormSubmit(evt) {
   const cardElement = getCardElement(inputValues);
   cardsList.prepend(cardElement);
   evt.target.reset();
+  disableButton(cardSubmitButton);
   closeModal(cardModal);
 }
 
