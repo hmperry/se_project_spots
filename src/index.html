@@ -3,21 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Spots - Project 3</title>
+    <title>Spots - Project 9</title>
     <meta
       name="description"
       content="Spots, a social media application for sharing photos"
     />
     <meta name="author" content="McKay Perry" />
     <meta name="keywords" content="coding software project 3" />
-    <link rel="stylesheet" href="./pages/index.css " />
     <link rel="shortcut icon" href="./favicon.ico" />
   </head>
   <body>
     <div class="page">
       <header class="header">
         <img
-          src="./images/header-logo.svg"
+          src="<%=require('./images/header-logo.svg')%>"
           alt="Spots logo"
           class="header__logo"
         />
@@ -26,7 +25,7 @@
       <main class="content">
         <section class="profile page__section">
           <img
-            src="./images/avatar.jpg"
+            src="<%= require('./images/avatar.jpg')%>"
             alt="current user avatar"
             class="profile__avatar"
           />
@@ -34,13 +33,15 @@
             <h1 class="profile__name">Bessie Coleman</h1>
             <p class="profile__title">Civil Aviator</p>
             <button type="button" class="profile__edit-button">
-              <img src="./images/icons/pencil.svg" alt="pencil icon" />Edit
-              Profile
+              <img
+                src="<%= require('./images/icons/pencil.svg')%>"
+                alt="pencil icon"
+              />Edit Profile
             </button>
           </div>
           <button type="button" class="profile__new-post-button">
             <img
-              src="./images/icons/plus.svg"
+              src="<%= require('./images/icons/plus.svg')%>"
               alt="plus"
               class="profile__plus-icon"
             />New Post
@@ -175,7 +176,5 @@
         <p class="modal__caption"></p>
       </div>
     </div>
-    <script src="./scripts/index.js" defer></script>
-    <script src="./scripts/validation.js"></script>
   </body>
 </html>
