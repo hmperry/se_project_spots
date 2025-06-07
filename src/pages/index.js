@@ -67,12 +67,35 @@ const api = new Api({
 //   });
 // });
 
-api.getInitialCards().then((cards) => {
-  cards.forEach((item) => {
-    const cardElement = getCardElement(item);
-    cardsList.append(cardElement);
+// api.getUserInfo().then((user) => {
+//   const profileImage = document.querySelector(".profile__avatar");
+//   profileImage.src = user.avatar;
+//   console.log(user);
+//   const profileName = document.querySelector(".profile__name");
+//   const profileDescription = document.querySelector(".profile__title");
+//   profileDescription.textContent = user.about;
+//   profileName.textContent = user.name;
+// });
+const profileImage = document.querySelector(".profile__avatar");
+const profileName = document.querySelector(".profile__name");
+const profileDescription = document.querySelector(".profile__title");
+api
+  .getAppInfo()
+  .then(([cards, user]) => {
+    cards.forEach((item) => {
+      const cardElement = getCardElement(item);
+      cardsList.append(cardElement);
+    });
+
+    profileImage.src = user.avatar;
+    console.log(user);
+
+    profileDescription.textContent = user.about;
+    profileName.textContent = user.name;
+  })
+  .catch((err) => {
+    console.error(err);
   });
-});
 
 // initialCards.forEach((item) => {
 //   // console.log(item);
@@ -83,9 +106,6 @@ const cardsList = document.querySelector("#cards_list");
 
 const profileEditButton = document.querySelector(".profile__edit-button");
 const editModal = document.querySelector("#edit-profile-modal");
-
-const profileName = document.querySelector(".profile__name");
-const profileDescription = document.querySelector(".profile__title");
 const editModalNameInput = editModal.querySelector("#profile-name-input");
 const editModalDescriptionInput = editModal.querySelector(
   "#profile-description-input"
@@ -142,9 +162,17 @@ closeButtons.forEach((button) => {
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  profileName.textContent = editModalNameInput.value;
-  profileDescription.textContent = editModalDescriptionInput.value;
-  closeModal(editModal);
+  api
+    .editUserInfo({
+      name: editModalNameInput.value,
+      about: editModalDescriptionInput.value,
+    })
+    .then((data) => {
+      profileName.textContent = data.name;
+      profileDescription.textContent = data.about;
+      closeModal(editModal);
+    })
+    .catch(console.error);
 }
 
 // Connect the handler to the form, so it will watch for the submit event.
