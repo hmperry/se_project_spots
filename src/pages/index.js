@@ -273,15 +273,14 @@ function handleNewPostFormSubmit(evt) {
     name: cardModalCaptionInput.value,
     link: cardModalImageLinkInput.value,
   };
-  const cardElement = getCardElement(inputValues);
 
   api
     .addNewCard(inputValues)
     .then((data) => {
       cardSubmitButton.textContent = "Save";
-      data.name = cardModalCaptionInput.value;
-      data.link = cardModalImageLinkInput.value;
       closeModal(cardModal);
+      const cardElement = getCardElement(data);
+
       evt.target.reset();
       cardsList.prepend(cardElement);
     })
