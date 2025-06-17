@@ -19,3 +19,6 @@ The technologies listed below were used to create an application with responsive
 This webpage is deployed to GitHub pages:
 
 - Link: (https://hmperry.github.io/se_project_spots/)
+
+### Project Demo
+View this video for a brief demo of this project: https://www.loom.com/share/35c6caeae8574bd783454943c9a54047?sid=a612fb63-6227-41bd-b279-cef7621c4a1d
